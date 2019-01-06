@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import passport from 'passport';
+
 import router from './routes/user';
 import {
     MongoURI
@@ -27,6 +29,10 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport.js')(passport);
 // Routes connection
 app.use('/user', router);
 

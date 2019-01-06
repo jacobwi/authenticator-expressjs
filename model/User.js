@@ -25,7 +25,17 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         minlength: 6
-    }
+    },
+    tokens: [{
+        access: {
+            type: String,
+            required: true
+        },
+        token: {
+            type: String,
+            required: true
+        }
+    }]
 });
 
 // User's password prehook
