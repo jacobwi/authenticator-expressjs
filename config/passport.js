@@ -1,8 +1,10 @@
 import passport from 'passport';
 
 import local from './strategies/local';
+import jwt from './strategies/jwt';
 
 local();
+jwt();
 
 export default function(app){
     app.use(passport.initialize());

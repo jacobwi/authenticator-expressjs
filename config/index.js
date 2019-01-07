@@ -8,6 +8,13 @@ const MongoURI = `mongodb://${MongoUsername}:${MongoPassword}@ds115963.mlab.com:
 
 
 /*
+    ENCRYPTION
+*/
+const jwtSecret = 'someSecret'
+const saltRounds = 12
+const tokenExpiration = 3600
+
+/*
     !!!! EXPORT !!!!
 */
-export {MongoUsername, MongoPassword, MongoURI};
+export {MongoUsername, MongoPassword, MongoURI, jwtSecret, saltRounds, tokenExpiration};

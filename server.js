@@ -32,7 +32,7 @@ app.use(morgan('tiny'));
 // Connect body parser to express app
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
 
 // Cookie parser

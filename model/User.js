@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import validator from 'validator';
 
+import * as Config from '../config';
+
 const Schema = mongoose.Schema;
 
 // User Schema
@@ -42,7 +44,7 @@ const UserSchema = new Schema({
 UserSchema.pre('save', function(next) {
     let user = this
 
-    bcrypt.hash(user.password, 12, (error, hash) => {
+    bcrypt.hash(user.password, Config.saltRounds, (error, hash) => {
         if (error) return next(error);
         user.password = hash
         next();
