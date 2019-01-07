@@ -1,39 +1,23 @@
-import LocalStrategy from 'passport-local';
 import passport from 'passport';
-import bcrypt from 'bcryptjs';
 
-import { UserModel } from '../model/User';
+import local from './strategies/local';
 
-module.exports = function(passport){
-    passport.use(new LocalStrategy(
-        function(username, password, done) {
-            UserModel.findOne({ username: username }, function (err, user) {
-            if (err) { return done(err); }
-            if (!user) {
-              return done(null, false, { message: 'Incorrect username.' });
-            }
+local();
 
-            bcrypt.compare(password, user.password, (error, isMatch) => {
-                if (error) throw error;
-                if (isMatch) {
-                    return done(null, user);
-                }
-                else {
-                    return done(null, false, { message: "Incorrect password."})
-                }
-                
-            })
-            
-          });
-        }
-    ));
+export default function(app){
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    // Saves the user in session
     passport.serializeUser(function(user, done) {
         done(null, user.id);
     });
       
+    // Retreives user from session
     passport.deserializeUser(function(id, done) {
         User.findById(id, function (err, user) {
           done(err, user);
         });
     });
+
 }

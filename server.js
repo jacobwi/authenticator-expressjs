@@ -2,7 +2,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import passport from 'passport';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
+import passportConfig from './config/passport.js';
 import router from './routes/user';
 import {
     MongoURI
@@ -22,6 +26,8 @@ mongoose.connect(MongoURI, {
     console.log(`Database connection failed: ${error.errmsg}`);
 })
 
+// Morgan logger
+app.use(morgan('tiny'));
 
 // Connect body parser to express app
 app.use(bodyParser.json());
@@ -29,10 +35,20 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-// Passport
-app.use(passport.initialize());
-app.use(passport.session());
-require('./config/passport.js')(passport);
+// Cookie parser
+app.use(cookieParser());
+
+// Express session init
+app.use(session({
+    secret: 'someSecret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}))
+
+// Passport config
+passportConfig(app);
+
 // Routes connection
 app.use('/user', router);
 
