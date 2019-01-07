@@ -1,7 +1,7 @@
 
-<div style="text-align:center"><img src="./img/express.png" title="Authenticator" alt="authenticator" width="128px">
+<h1 align="center"><img src="./img/express.png" title="Authenticator" alt="authenticator" width="128px">
 
-<img src="./img/passport.png" title="Authenticator" alt="authenticator" width="128px"></div>
+<img src="./img/passport.png" title="Authenticator" alt="authenticator" width="128px"></h1>
 
 # Authenticator-expressJS
 
